@@ -1,0 +1,1454 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light" style=""><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complete Guide: STM32CubeIDE Setup for RAK3172 Custom Firmware Development</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Times+New+Roman:wght@400;700&amp;family=Arial:wght@400;700&amp;display=swap" rel="stylesheet">
+    <style>
+      body {
+        max-width: 880px;
+        margin: 0 auto;
+        padding: 32px 80px;
+        position: relative;
+        box-sizing: border-box;
+        font-family: 'Times New Roman', Times, serif;
+        line-height: 1.6;
+        color: #333;
+        text-align: justify;
+      }
+
+      h1,
+      h2,
+      h3,
+      h4 {
+        font-family: Arial, sans-serif;
+        color: #2c3e50;
+        margin-top: 2em;
+        margin-bottom: 1em;
+        page-break-after: avoid;
+      }
+
+      h1 {
+        text-align: center;
+        font-size: 24px;
+        font-weight: bold;
+        margin-top: 0;
+        border-bottom: 3px solid #2c3e50;
+        padding-bottom: 10px;
+      }
+
+      h2 {
+        font-size: 20px;
+        font-weight: bold;
+        border-bottom: 1px solid #7f8c8d;
+        padding-bottom: 5px;
+      }
+
+      h3 {
+        font-size: 18px;
+        font-weight: bold;
+        color: #34495e;
+      }
+
+      h4 {
+        font-size: 16px;
+        font-weight: bold;
+        color: #34495e;
+      }
+
+      .subtitle {
+        text-align: center;
+        font-style: italic;
+        font-size: 16px;
+        color: #7f8c8d;
+        margin-bottom: 1em;
+      }
+
+      .document-info {
+        text-align: center;
+        margin-bottom: 3em;
+        padding: 20px;
+        background-color: #f8f9fa;
+        border: 1px solid #dee2e6;
+      }
+
+      .warning-box {
+        background-color: #fff3cd;
+        border: 1px solid #ffeaa7;
+        border-left: 5px solid #fdcb6e;
+        padding: 15px;
+        margin: 20px 0;
+      }
+
+      .info-box {
+        background-color: #d1ecf1;
+        border: 1px solid #b8daff;
+        border-left: 5px solid #007bff;
+        padding: 15px;
+        margin: 20px 0;
+      }
+
+      .critical-box {
+        background-color: #f8d7da;
+        border: 1px solid #f5c6cb;
+        border-left: 5px solid #dc3545;
+        padding: 15px;
+        margin: 20px 0;
+        font-weight: bold;
+      }
+
+      code {
+        background-color: #f8f9fa;
+        padding: 2px 4px;
+        border: 1px solid #e9ecef;
+        font-family: 'Courier New', Courier, monospace;
+        font-size: 14px;
+      }
+
+      pre {
+        background-color: #f8f9fa;
+        border: 1px solid #e9ecef;
+        padding: 15px;
+        margin: 20px 0;
+        font-family: 'Courier New', Courier, monospace;
+        font-size: 13px;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+        font-size: 14px;
+      }
+
+      th,
+      td {
+        border: 1px solid #dee2e6;
+        padding: 12px;
+        text-align: left;
+      }
+
+      th {
+        background-color: #f8f9fa;
+        font-weight: bold;
+      }
+
+      ul,
+      ol {
+        margin: 15px 0;
+        padding-left: 30px;
+      }
+
+      li {
+        margin-bottom: 8px;
+      }
+
+      p {
+        margin: 15px 0;
+        text-indent: 0;
+      }
+
+      .toc {
+        background-color: #f8f9fa;
+        border: 1px solid #dee2e6;
+        padding: 20px;
+        margin: 30px 0;
+      }
+
+      .toc h2 {
+        margin-top: 0;
+        text-align: center;
+      }
+
+      .checklist {
+        list-style-type: none;
+        padding-left: 0;
+      }
+
+      .checklist li {
+        margin: 10px 0;
+        padding-left: 25px;
+        position: relative;
+      }
+
+      .checklist li:before {
+        content: '☐';
+        position: absolute;
+        left: 0;
+        font-size: 16px;
+      }
+
+      .step-number {
+        background-color: #007bff;
+        color: white;
+        border-radius: 50%;
+        width: 25px;
+        height: 25px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        margin-right: 10px;
+        font-size: 14px;
+      }
+    </style>
+  </head>
+  <body style="">
+    <h1>Complete Guide: STM32CubeIDE Setup for RAK3172 Custom Firmware Development</h1>
+
+    <div class="subtitle">Updated for Latest Versions - STM32CubeIDE 2.0.0 and STM32CubeWL SDK V1.4.0 (December 2025)</div>
+
+    <div class="document-info">
+      <p><strong>Author:</strong> Technical Documentation for Embedded Systems Development</p>
+      <p><strong>Date:</strong> December 2025</p>
+      <p><strong>Document Version:</strong> 3.1</p>
+      <p><strong>Target Hardware:</strong> RAK3172 LoRaWAN Module (STM32WLE5CCU6)</p>
+    </div>
+
+    <div class="toc">
+      <h2>Table of Contents</h2>
+      <ol>
+        <li>Understanding the Hardware and Software Stack</li>
+        <li>Prerequisites and System Requirements</li>
+        <li>Step-by-Step Installation Guide</li>
+        <li>Configuring STM32CubeIDE for RAK3172</li>
+        <li>Building and Testing the Firmware</li>
+        <li>Programming the RAK3172</li>
+        <li>Low-Level Programming and Customization</li>
+        <li>Debugging and Troubleshooting</li>
+        <li>Version Updates and Migration</li>
+        <li>Production Considerations</li>
+        <li>Additional Resources</li>
+        <li>Quick Reference</li>
+      </ol>
+    </div>
+
+    <h2>Document Overview</h2>
+
+    <p>
+      This comprehensive guide provides step-by-step instructions for setting up STM32CubeIDE with the latest STM32WL
+      SDK for RAK3172 custom firmware development. This documentation addresses the gap left by outdated RAKwireless
+      guides (versions 0.1 and 0.2) and provides current, tested procedures for successful development environment
+      setup.
+    </p>
+
+    <p>
+      <strong>Target Audience:</strong> Embedded developers working with RAK3172 LoRaWAN modules who need to create
+      custom firmware beyond the standard AT command interface.
+    </p>
+
+    <p><strong>Key Objectives:</strong></p>
+    <ul>
+      <li>Complete setup and configuration of development environment</li>
+      <li>Successful compilation and testing of custom firmware</li>
+      <li>Understanding of low-level programming techniques</li>
+      <li>Troubleshooting common development issues</li>
+    </ul>
+
+    <div class="warning-box">
+      <strong>Important Notice:</strong> The official RAKwireless documentation for versions 0.1 and 0.2 are outdated.
+      This guide is updated for current development tools as of December 2025:<br><br>
+      <strong>RAK3172 Low Level Development:</strong> Current latest version is <strong>v1.2.0</strong><br>
+      Download link: <code>https://downloads.rakwireless.com/#LoRa/RAK3172/Firmware/</code><br><br>
+      <strong>Current Development Tools (2025):</strong>
+      <ul>
+        <li><strong>RUI3 Framework:</strong> Latest version v4.2.1 (released April 14, 2025)</li>
+        <li><strong>WisToolBox:</strong> Free application for LoRaWAN configuration and firmware updates (available on Windows Store)</li>
+      </ul>
+    </div>
+
+    <h2>Section 1: Understanding the Hardware and Software Stack</h2>
+
+    <h3>1.1 RAK3172 Module Overview</h3>
+
+    <p>
+      The RAK3172 is a low-power LoRaWAN module based on the STMicroelectronics STM32WLE5CCU6 microcontroller. This
+      system-on-chip (SoC) integrates both a powerful ARM Cortex-M4 processor and a sub-GHz radio transceiver in a
+      single package.
+    </p>
+
+    <p><strong>Key Specifications:</strong></p>
+    <table>
+      <tbody><tr>
+        <th>Component</th>
+        <th>Specification</th>
+        <th>Details</th>
+      </tr>
+      <tr>
+        <td>Microcontroller</td>
+        <td>STM32WLE5CCU6</td>
+        <td>ARM Cortex-M4 @ 48MHz</td>
+      </tr>
+      <tr>
+        <td>Flash Memory</td>
+        <td>256 KB</td>
+        <td>Internal Flash</td>
+      </tr>
+      <tr>
+        <td>RAM</td>
+        <td>64 KB</td>
+        <td>SRAM</td>
+      </tr>
+      <tr>
+        <td>Radio Frequency</td>
+        <td>150-960 MHz</td>
+        <td>Sub-GHz ISM bands</td>
+      </tr>
+      <tr>
+        <td>TX Power</td>
+        <td>Up to +22 dBm</td>
+        <td>Configurable</td>
+      </tr>
+      <tr>
+        <td>RX Sensitivity</td>
+        <td>-148 dBm</td>
+        <td>At SF12, 125kHz</td>
+      </tr>
+      <tr>
+        <td>Package</td>
+        <td>15x15.5x2.5 mm</td>
+        <td>SMD Module</td>
+      </tr>
+    </tbody></table>
+
+    <h3>1.2 Software Components Required</h3>
+
+    <p>The development environment consists of several key software components that must work together seamlessly:</p>
+
+    <table>
+      <tbody><tr>
+        <th>Software Component</th>
+        <th>Latest Version</th>
+        <th>Purpose</th>
+        <th>Download Source</th>
+      </tr>
+      <tr>
+        <td>STM32CubeIDE</td>
+        <td>2.0.0 (Current)</td>
+        <td>Integrated Development Environment</td>
+        <td>st.com</td>
+      </tr>
+      <tr>
+        <td>STM32CubeWL SDK</td>
+        <td>V1.4.0</td>
+        <td>Hardware Abstraction Layer &amp; Examples</td>
+        <td>st.com / GitHub</td>
+      </tr>
+      <tr>
+        <td>STM32CubeProgrammer</td>
+        <td>V2.21.0+</td>
+        <td>Firmware Flashing Tool</td>
+        <td>st.com</td>
+      </tr>
+      <tr>
+        <td>ST-LINK Drivers</td>
+        <td>Latest</td>
+        <td>Hardware Interface Drivers</td>
+        <td>Included with IDE</td>
+      </tr>
+    </tbody></table>
+
+    <div class="info-box">
+      <strong>Version Compatibility Matrix:</strong> STM32CubeIDE 1.16+ is fully compatible with STM32CubeWL SDK V1.4.0.
+      Earlier combinations may have compatibility issues and are not recommended for new projects.
+    </div>
+
+    <h2>Section 2: Prerequisites and System Requirements</h2>
+
+    <h3>2.1 Hardware Requirements</h3>
+
+    <p><strong>Development Computer:</strong></p>
+    <ul>
+      <li>CPU: Intel Core i5 or AMD equivalent (minimum)</li>
+      <li>RAM: 8GB minimum, 16GB recommended</li>
+      <li>Storage: 5GB free space for complete installation (2-3GB for IDE, 500MB for SDK)</li>
+      <li>USB Port: For ST-LINK connection</li>
+    </ul>
+
+    <p><strong>Programming Hardware:</strong></p>
+    <ul>
+      <li>ST-LINK V2 or compatible programmer/debugger</li>
+      <li>RAK3172 module or evaluation board</li>
+      <li>Connecting cables (Dupont wires recommended)</li>
+      <li>USB-to-Serial adapter (for UART programming option)</li>
+    </ul>
+
+    <h3>2.2 Software Prerequisites</h3>
+
+    <p><strong>Operating System Support:</strong></p>
+    <table>
+      <tbody><tr>
+        <th>OS</th>
+        <th>Versions Supported</th>
+        <th>Notes</th>
+      </tr>
+      <tr>
+        <td>Windows</td>
+        <td>10, 11 (64-bit)</td>
+        <td>Recommended platform</td>
+      </tr>
+      <tr>
+        <td>Linux</td>
+        <td>Ubuntu 18.04+, CentOS 8+</td>
+        <td>Debian-based preferred</td>
+      </tr>
+      <tr>
+        <td>macOS</td>
+        <td>10.14+</td>
+        <td>Limited testing</td>
+      </tr>
+    </tbody></table>
+
+    <p><strong>Additional Requirements:</strong></p>
+    <ul>
+      <li>Administrator/root access for driver installation</li>
+      <li>Minimum 4GB available disk space</li>
+      <li>Internet connection for downloads and updates</li>
+      <li>Antivirus exclusion for development folders (recommended)</li>
+    </ul>
+
+    <h3>2.3 Required Accounts</h3>
+
+    <p>A free STMicroelectronics account is required to download software packages.</p>
+
+    <p><strong>Account Creation Steps:</strong></p>
+    <ol>
+      <li>Navigate to <code>https://www.st.com</code></li>
+      <li>Click "My ST" → "Register"</li>
+      <li>Fill required information (valid email address required)</li>
+      <li>Verify email address through confirmation link</li>
+      <li>Complete profile setup</li>
+    </ol>
+
+    <h2>Section 3: Step-by-Step Installation Guide</h2>
+
+    <h3>3.1 Installing STM32CubeIDE (Latest Version 1.16+)</h3>
+
+    <h4>Step 1: Downloading STM32CubeIDE</h4>
+
+    <ol>
+      <li>
+        <span class="step-number">1</span>Navigate to the official ST website:
+        <code>https://www.st.com/en/development-tools/stm32cubeide.html</code>
+      </li>
+      <li><span class="step-number">2</span>Click the "Get Software" button</li>
+      <li>
+        <span class="step-number">3</span>Select the appropriate version for your operating system:
+        <ul>
+          <li><strong>Windows:</strong> STM32CubeIDE-Win (exe installer, ~1.2GB)</li>
+          <li><strong>Linux:</strong> STM32CubeIDE-Lnx (sh installer or RPM/DEB packages)</li>
+          <li><strong>macOS:</strong> STM32CubeIDE-Mac (dmg installer)</li>
+        </ul>
+      </li>
+      <li><span class="step-number">4</span>Login with your ST account when prompted</li>
+      <li><span class="step-number">5</span>Accept the license agreement</li>
+      <li><span class="step-number">6</span>Download the installer file</li>
+    </ol>
+
+    <div class="warning-box">
+      <strong>DOWNLOAD TROUBLESHOOTING TIP:</strong> Some users report download failures when using desktop browsers to download from ST's website. If your download fails or gets corrupted:<br><br>
+      <strong>Alternative Method:</strong>
+      <ol>
+        <li>Try downloading using your mobile phone browser (4G/5G connection)</li>
+        <li>Once download completes on phone, transfer the file to your computer via USB or cloud storage</li>
+        <li>This method has proven successful when desktop downloads fail</li>
+      </ol>
+      Reason: ST's download servers sometimes have better compatibility with mobile browsers or different network routes.
+    </div>
+
+    <h4>Step 2: Installing STM32CubeIDE</h4>
+
+    <h5>For Windows:</h5>
+    <ol>
+      <li>Run the downloaded .exe installer as Administrator</li>
+      <li>Accept UAC prompt (Administrator rights required)</li>
+      <li>Click "Next" on the welcome screen</li>
+      <li>Review and accept the license agreement</li>
+      <li>Choose installation directory (default: <code>C:\ST\STM32CubeIDE_1.16.0</code>)</li>
+      <li>
+        <div class="critical-box">
+          <strong>CRITICAL:</strong> Select optional components - CHECK ALL:
+          <ul>
+            <li>ST-LINK drivers (essential for programming)</li>
+            <li>J-Link drivers (recommended for debugging)</li>
+            <li>Segger J-Link tools</li>
+          </ul>
+        </div>
+      </li>
+      <li>Click "Install" and wait for completion (5-10 minutes)</li>
+      <li>Launch STM32CubeIDE when installation completes</li>
+    </ol>
+
+    <h5>For Linux:</h5>
+    <pre># Make installer executable
+chmod +x STM32CubeIDE_*.sh
+
+# Run installer with sudo privileges
+sudo ./STM32CubeIDE_*.sh
+
+# Follow GUI prompts similar to Windows installation
+# Default install location: /opt/st/stm32cubeide_1.16.0
+</pre>
+
+    <h5>For macOS:</h5>
+    <ol>
+      <li>Open the downloaded .dmg file</li>
+      <li>Drag STM32CubeIDE to Applications folder</li>
+      <li>First launch: Right-click → Open (to bypass Gatekeeper)</li>
+      <li>Install drivers when prompted</li>
+    </ol>
+
+    <h4>Step 3: Initial STM32CubeIDE Configuration</h4>
+
+    <ol>
+      <li>Launch STM32CubeIDE</li>
+      <li>Select workspace location (create dedicated folder: <code>C:\STM32_Workspace</code>)</li>
+      <li>Go to <strong>Window → Preferences</strong></li>
+      <li>
+        Configure the following settings:
+        <ul>
+          <li><strong>C/C++ → Build → Console:</strong> Increase buffer size to 100000 lines</li>
+          <li><strong>General → Workspace:</strong> Set text file encoding to UTF-8</li>
+          <li><strong>STM32Cube → Firmware Updater:</strong> Enable automatic check for updates</li>
+        </ul>
+      </li>
+    </ol>
+
+    <h3>3.2 Installing STM32CubeWL SDK (V1.4.0 - Latest)</h3>
+
+    <h4>Method 1: Download from ST Website (Recommended)</h4>
+
+    <ol>
+      <li>Navigate to: <code>https://www.st.com/en/embedded-software/stm32cubewl.html</code></li>
+      <li>Click "Get Software"</li>
+      <li>Select STM32CubeWL package (latest version - currently V1.4.0)</li>
+      <li>Login with your ST account</li>
+      <li>Download ZIP file (~500MB)</li>
+      <li>Extract to dedicated location: <code>C:\STM32Cube\Repository\STM32Cube_FW_WL_V1.4.0</code></li>
+    </ol>
+
+    <div class="warning-box">
+      <strong>IMPORTANT:</strong> Do NOT modify the folder structure after extraction. The SDK expects specific paths
+      for proper compilation.
+    </div>
+
+    <h4>Method 2: Using STM32CubeMX Package Manager (If Available)</h4>
+
+    <div class="warning-box">
+      <strong>UPDATE:</strong> In STM32CubeIDE versions 1.16+, the "Manage Embedded Software Packages" option may not appear in the Help menu. This feature is only accessible when creating a new STM32 project through STM32CubeMX integration. <strong>Method 1 (manual download) is recommended and most reliable.</strong>
+    </div>
+
+    <p><strong>Alternative approach if you want to use package manager:</strong></p>
+    <ol>
+      <li>Open STM32CubeIDE</li>
+      <li>Go to <strong>File → New → STM32 Project</strong></li>
+      <li>In the Target Selection window, you'll see a message about firmware packages</li>
+      <li>Click <strong>Help → Manage Embedded Software Packages</strong> (only available from this wizard)</li>
+      <li>From STM32WL Series, expand the tree</li>
+      <li>Select "STM32Cube MCU Package for STM32WL Series V1.4.0"</li>
+      <li>Click "Install Now"</li>
+      <li>Cancel the new project wizard after installation completes</li>
+    </ol>
+    
+    <p><strong>Or use standalone STM32CubeMX (separate application):</strong></p>
+    <ol>
+      <li>Download STM32CubeMX separately from st.com</li>
+      <li>Launch STM32CubeMX application</li>
+      <li>Go to <strong>Help → Manage Embedded Software Packages</strong></li>
+      <li>Install STM32CubeWL V1.4.0 from there</li>
+      <li>The package will be available to STM32CubeIDE</li>
+    </ol>
+
+    <h4>Method 3: Clone from GitHub (Advanced Users)</h4>
+
+    <pre>git clone --recursive https://github.com/STMicroelectronics/STM32CubeWL.git
+cd STM32CubeWL
+git checkout v1.4.0
+</pre>
+
+    <h3>3.3 Installing STM32CubeProgrammer</h3>
+
+    <ol>
+      <li>Download from: <code>https://www.st.com/en/development-tools/stm32cubeprog.html</code></li>
+      <li>Current version: 2.21.0 or later</li>
+      <li>Install following similar process to CubeIDE</li>
+      <li>This tool is essential for flashing firmware via UART bootloader or ST-LINK</li>
+    </ol>
+
+    <h2>Section 4: Configuring STM32CubeIDE for RAK3172</h2>
+
+    <h3>4.1 Creating a Clean Foundation and Importing the Project (PROVEN METHOD)</h3>
+
+    <div class="critical-box">
+      <strong>THIS IS A PROVEN METHOD THAT WORKS:</strong> This procedure has been tested and successfully builds without path errors. Follow these steps EXACTLY to avoid common pitfalls.
+    </div>
+
+    <h4>PHASE 1: Create Clean, Organized Project Structure</h4>
+
+    <p><strong>Why we do this:</strong> Organizing the SDK and workspace properly prevents Windows path issues and file corruption problems.</p>
+
+    <p><strong>Step 1A: Get a Fresh Copy of STM32CubeWL SDK</strong></p>
+    <ol>
+      <li>Open File Explorer</li>
+      <li>Navigate to where you downloaded the STM32CubeWL package (likely your Downloads folder)</li>
+      <li>Find the ZIP file: <code>en.stm32cubewl_v1.x.x.zip</code> or <code>STM32CubeWL-main.zip</code></li>
+      <li>If you already extracted it before, <strong>delete any old extracted folders</strong> to start fresh</li>
+      <li>Right-click the ZIP file → <strong>Extract All</strong> → Extract directly to Downloads folder</li>
+    </ol>
+
+    <p><strong>Step 1B: Create Organized Folder Structure</strong></p>
+    <ol>
+      <li>Open File Explorer → Go to <strong>C:\ drive</strong></li>
+      <li>Right-click → <strong>New → Folder</strong> → Name it: <code>STM32_Projects</code></li>
+      <li>Double-click to open <code>STM32_Projects</code></li>
+      <li>Create another folder inside: <code>RAK3172_Work</code></li>
+      <li>Your folder structure should now be: <code>C:\STM32_Projects\RAK3172_Work\</code></li>
+    </ol>
+
+    <p><strong>Step 1C: Move the Fresh SDK to the Right Location</strong></p>
+    <ol>
+      <li>Go back to your Downloads folder</li>
+      <li>Find the freshly extracted folder (probably called <code>STM32CubeWL-main</code> or similar)</li>
+      <li>Right-click on it → <strong>Cut</strong> (NOT Copy)</li>
+      <li>Navigate to <code>C:\STM32_Projects\RAK3172_Work\</code></li>
+      <li>Right-click → <strong>Paste</strong></li>
+      <li>Right-click the pasted folder → <strong>Rename</strong> → Change to: <code>STM32CubeWL_SDK</code></li>
+      <li><strong>Final path should be:</strong> <code>C:\STM32_Projects\RAK3172_Work\STM32CubeWL_SDK\</code></li>
+    </ol>
+
+    <div class="warning-box">
+      <strong>CHECKPOINT 1 - VERIFY BEFORE CONTINUING:</strong>
+      <ol>
+        <li>☐ Do you have this exact folder: <code>C:\STM32_Projects\RAK3172_Work\STM32CubeWL_SDK\</code> ?</li>
+        <li>☐ Inside that folder, do you see these 4 main folders: <code>Drivers</code>, <code>Middlewares</code>, <code>Projects</code>, <code>Utilities</code>?</li>
+        <li>☐ Is the <code>Utilities</code> folder NOT empty? (Open it and confirm you see subfolders like <code>lpm</code>, <code>misc</code>, <code>sequencer</code>, <code>timer</code>, <code>trace</code>)</li>
+      </ol>
+      <strong>ONLY proceed if you answered YES to all 3.</strong> If any is NO, go back and fix it first.
+    </div>
+
+    <h4>PHASE 2: Set Up Workspace and Import Project</h4>
+
+    <p><strong>Step 2A: Create the Correct Workspace</strong></p>
+    <ol>
+      <li>Open STM32CubeIDE (blue icon)</li>
+      <li>You'll see "Workspace Launcher" dialog</li>
+      <li>Click <strong>"Browse"</strong></li>
+      <li>Navigate to: <code>C:\STM32_Projects\RAK3172_Work\</code></li>
+      <li>Click <strong>"Select Folder"</strong></li>
+      <li>Verify the path shows: <code>C:\STM32_Projects\RAK3172_Work</code></li>
+      <li>Click <strong>"Launch"</strong></li>
+      <li>STM32CubeIDE will open with an empty Project Explorer on the left</li>
+    </ol>
+
+    <p><strong>Step 2B: Verify Project Files Exist</strong></p>
+    <ol>
+      <li>Open File Explorer (keep STM32CubeIDE running)</li>
+      <li>Navigate to: <code>C:\STM32_Projects\RAK3172_Work\STM32CubeWL_SDK\Projects\NUCLEO-WL55JC\Applications\LoRaWAN\LoRaWAN_End_Node\STM32CubeIDE</code></li>
+      <li>In this folder, verify you see files like: <code>.project</code>, <code>.cproject</code>, <code>LoRaWAN_End_Node.ioc</code></li>
+    </ol>
+
+    <p><strong>Step 2C: Import Using the "In-Place" Method</strong></p>
+    <ol>
+      <li>In STM32CubeIDE: <strong>File → Import...</strong></li>
+      <li>Expand <strong>"General"</strong> → Double-click <strong>"Existing Projects into Workspace"</strong></li>
+      <li>Click <strong>"Browse..."</strong> next to "Select root directory"</li>
+      <li>Navigate to: <code>C:\STM32_Projects\RAK3172_Work\STM32CubeWL_SDK\Projects\NUCLEO-WL55JC\Applications\LoRaWAN\LoRaWAN_End_Node\STM32CubeIDE</code></li>
+      <li>Click <strong>"Select Folder"</strong></li>
+      <li>You should see "LoRaWAN_End_Node" checked in the Projects list</li>
+    </ol>
+
+    <div class="critical-box">
+      <strong>THE GOLDEN RULE (ABSOLUTELY CRITICAL):</strong><br>
+      Look for the checkbox: <strong>"Copy projects into workspace"</strong><br><br>
+      
+      ⚠️ <strong>MAKE SURE THIS BOX IS UNCHECKED (EMPTY)</strong> ⚠️<br><br>
+      
+      <strong>Why this matters:</strong> If you check this box, the computer makes a copy but breaks all connections to the Utilities, Drivers, and Middlewares folders. By leaving it UNCHECKED, everything stays connected properly and you avoid path errors.
+    </div>
+
+    <ol start="7">
+      <li>Click <strong>"Finish"</strong></li>
+    </ol>
+
+    <div class="warning-box">
+      <strong>CHECKPOINT 2 - VERIFY IMPORT SUCCESS:</strong>
+      <ol>
+        <li>☐ Do you see "LoRaWAN_End_Node" in the Project Explorer (left panel)?</li>
+        <li>☐ Did you remember to UNCHECK "Copy projects into workspace"?</li>
+        <li>☐ Can you expand the project (click arrow) and see folders like <code>Application</code>, <code>Drivers</code>, <code>Middlewares</code>, <code>Utilities</code>?</li>
+      </ol>
+      <strong>ONLY proceed if you answered YES to all 3.</strong>
+    </div>
+
+    <h3>4.2 Baseline Test (BEFORE RAK3172 Modifications)</h3>
+
+    <div class="info-box">
+      <strong>CRITICAL STEP:</strong> Before making ANY modifications for RAK3172, we must verify the ST example builds successfully. This proves our foundation is solid.
+    </div>
+
+    <p><strong>Baseline Build Test:</strong></p>
+    <ol>
+      <li>In STM32CubeIDE, right-click on <strong>LoRaWAN_End_Node</strong> project</li>
+      <li>Click <strong>Build Project</strong></li>
+      <li>Watch the Console tab at the bottom (build takes 1-2 minutes)</li>
+      <li>Look for the final line: Should say <strong>"Build Finished. 0 errors"</strong></li>
+    </ol>
+
+    <div class="warning-box">
+      <strong>CHECKPOINT:</strong>
+      <ul>
+        <li><strong>If you get 0 errors:</strong> ✅ Perfect! Your foundation is solid. Proceed to Section 4.3 for RAK3172 modifications.</li>
+        <li><strong>If you get errors:</strong> ❌ STOP. Fix the base project first before applying RAK3172 patches. The errors indicate SDK/import issues.</li>
+      </ul>
+    </div>
+
+    <h3>4.3 Critical Modifications for RAK3172 Compatibility</h3>
+
+    <div class="critical-box">
+      <strong>WHY THIS IS NECESSARY:</strong> The NUCLEO-WL55JC example project is configured for ST's development board, which has DIFFERENT antenna switching, RF matching, and pin configurations than the RAK3172 module. If you don't replace these files, your radio WILL NOT WORK.
+    </div>
+
+    <h4>Modification 1: Download RAK3172-Specific Files</h4>
+
+    <p><strong>STEP 1: Get the RAK3172 Hardware Configuration Files</strong></p>
+
+    <p>You MUST download RAK3172-specific hardware files. Here's EXACTLY how:</p>
+
+    <ol>
+      <li>
+        <strong>Go to RAKwireless Documentation:</strong><br>
+        Open browser: <code>https://docs.rakwireless.com/Product-Categories/WisDuo/RAK3172-Module/Low-Level-Development/</code>
+      </li>
+      <li>
+        <strong>Scroll down to the section for your SDK version</strong> (look for "STM32CubeIDE guide with STM32WL SDK v1.3.0" or v1.4.0)
+      </li>
+      <li>
+        <strong>Download the RAK3172 hardware files package</strong> - usually provided as a ZIP file containing:
+        <ul>
+          <li>radio_board_if.c</li>
+          <li>radio_board_if.h</li>
+          <li>radio_conf.h</li>
+          <li>startup_stm32wle5ccux.s</li>
+        </ul>
+      </li>
+      <li>
+        <strong>Alternative download location:</strong><br>
+        RAKwireless GitHub: <code>https://github.com/RAKWireless/RAK-STM32-RUI</code><br>
+        Navigate to the hardware configuration folder for RAK3172
+      </li>
+    </ol>
+
+    <div class="warning-box">
+      <strong>IMPORTANT:</strong> If RAKwireless hasn't yet published files specifically for SDK V1.4.0, use the V1.3.0 files - they are compatible. The hardware configuration hasn't changed between these SDK versions.
+    </div>
+
+    <h4>Modification 2: Replace Files in Your Project</h4>
+
+    <p><strong>STEP 2: Locate Your Project Files in STM32CubeIDE</strong></p>
+
+    <ol>
+      <li>
+        <strong>Open STM32CubeIDE</strong>
+      </li>
+      <li>
+        <strong>In the Project Explorer panel (left side),</strong> expand your imported project. You should see a tree structure like this:
+        <pre>LoRaWAN_End_Node
+├── Includes
+├── Application
+│   └── User
+│       ├── Core
+│       │   ├── adc_if.c
+│       │   ├── main.c
+│       │   ├── stm32_lpm_if.c
+│       │   └── ... (other .c files)
+│       ├── LoRaWAN
+│       │   └── App
+│       │   └── Target
+│       │       └── radio_board_if.c    ← YOU WILL REPLACE THIS
+│       └── Startup
+│           └── startup_stm32wle5ccux.s ← YOU WILL REPLACE THIS
+├── Doc
+├── Drivers
+├── Middlewares
+├── Release
+├── Utilities
+├── LoRaWAN_End_Node.ioc
+└── STM32WL55JCIX_FLASH.ld
+        </pre>
+      </li>
+      <li>
+        <strong>IMPORTANT - ACTUAL FILE LOCATIONS (STM32CubeIDE 2.0.0):</strong>
+        <ul>
+          <li><code>radio_board_if.c</code> is in: <strong>Application → User → Core → LoRaWAN → Target</strong></li>
+          <li><code>radio_board_if.h</code> - <strong>EXPAND radio_board_if.c</strong> (click arrow) → you'll see it nested underneath</li>
+          <li><code>radio_conf.h</code> is in: <strong>Middlewares → LoRaWAN → SubGHz_Phy</strong> (NOT in Target folder)</li>
+          <li><code>radio_driver.c</code> and <code>radio_driver.h</code> are also in: <strong>Middlewares → LoRaWAN → SubGHz_Phy</strong></li>
+          <li><code>startup_stm32wle5ccux.s</code> is in: <strong>Application → User → Startup</strong></li>
+        </ul>
+      </li>
+    </ol>
+
+    <div class="info-box">
+      <strong>UPDATED PROJECT STRUCTURE (STM32CubeIDE 2.0.0):</strong> Based on real project, the structure looks like this:
+      <pre>LoRaWAN_End_Node (in STM32CubeIDE)
+├── Application
+│   └── User
+│       ├── Core
+│       │   └── LoRaWAN
+│       │       └── Target
+│       │           ├── radio_board_if.c
+│       │           │   └── radio_board_if.h (nested under .c file)
+│       │           └── RBI_ConfigRFSwitch() [function list shown]
+│       └── Startup
+│           └── startup_stm32wle5ccux.s
+├── Middlewares
+│   └── LoRaWAN
+│       └── SubGHz_Phy
+│           ├── radio_driver.c
+│           │   └── radio_driver.h (nested under .c file)
+│           ├── radio.c
+│           ├── radio_conf.h ← FOUND HERE!
+│           └── math.h, mw_log_conf.h, etc.
+└── ... (other folders)
+      </pre>
+    </div>
+
+    <p><strong>STEP 3: Replace the Files (EXACT PROCEDURE)</strong></p>
+
+    <div class="info-box">
+      <strong>BEFORE YOU START:</strong> Make a backup copy of your entire project folder first! Right-click the project → Copy, then Paste it with a different name like "LoRaWAN_End_Node_BACKUP"
+    </div>
+
+    <div class="warning-box">
+      <strong>IMPORTANT: Understand the difference between locations!</strong><br><br>
+      
+      <strong>1. Your Downloads folder</strong> (where RAK3172 files are):<br>
+      Example: <code>C:\Users\YourName\Downloads\RAK3172_Hardware_Files\</code><br>
+      This is where you saved the RAK3172-specific files you downloaded from RAKwireless website.<br><br>
+      
+      <strong>2. Your STM32CubeIDE workspace</strong> (where your project is):<br>
+      Example: <code>C:\STM32_Workspace\LoRaWAN_End_Node\</code><br>
+      This is the folder you selected when you first launched STM32CubeIDE. Your imported project is here.<br><br>
+      
+      <strong>3. Project Explorer in STM32CubeIDE</strong> (just a view):<br>
+      The tree view on the left side of STM32CubeIDE showing folders like "Application → User → LoRaWAN → Target"<br>
+      This is NOT a folder location - it's how STM32CubeIDE displays your project files.<br><br>
+      
+      <strong>What you'll do:</strong><br>
+      Copy files FROM your Downloads folder → TO your workspace folder<br>
+      Then refresh STM32CubeIDE so it sees the new files
+    </div>
+
+    <div class="critical-box">
+      <strong>UNDERSTAND THREE DIFFERENT LOCATIONS:</strong>
+      <ol>
+        <li><strong>RAK3172 downloaded files</strong> = In your Downloads folder (e.g., <code>C:\Users\YourName\Downloads\RAK3172_Files\</code>) - This is where you saved the RAK3172-specific files you downloaded from RAKwireless</li>
+        <li><strong>STM32CubeIDE Project Explorer</strong> = The virtual tree view INSIDE STM32CubeIDE showing your project structure - This is just a VIEW, not the actual folder location</li>
+        <li><strong>Actual project folder on disk</strong> = The real Windows folder where your project files are stored (e.g., <code>C:\STM32_Workspace\LoRaWAN_End_Node\...</code>) - This is where you physically copy files</li>
+      </ol>
+    </div>
+
+    <p><strong>File 1: radio_board_if.c - COMPLETE STEP-BY-STEP</strong></p>
+    <ol>
+      <li>
+        <strong>INSIDE STM32CubeIDE (left panel called "Project Explorer"):</strong><br>
+        Click the arrows to expand: <code>LoRaWAN_End_Node → Application → User → LoRaWAN → Target</code><br>
+        You should now see <code>radio_board_if.c</code> listed
+      </li>
+      <li>
+        <strong>Delete the old file:</strong><br>
+        Right-click <code>radio_board_if.c</code> → <strong>Delete</strong> → Click "Yes" to confirm
+      </li>
+      <li>
+        <strong>Find where the RAK3172 file is (your Downloads):</strong><br>
+        Open Windows File Explorer (Win+E)<br>
+        Go to where you saved the RAK3172 files you downloaded, for example:<br>
+        <code>C:\Users\YourName\Downloads\RAK3172_Hardware_Files\</code><br>
+        You should see the RAK3172 version of <code>radio_board_if.c</code> here
+      </li>
+      <li>
+        <strong>Copy it (Ctrl+C):</strong><br>
+        Right-click the RAK3172 <code>radio_board_if.c</code> → Copy (or press Ctrl+C)
+      </li>
+      <li>
+        <strong>Find where your PROJECT is stored on disk:</strong><br>
+        Still in Windows File Explorer, navigate to your STM32CubeIDE workspace:<br>
+        <code>C:\Users\tngug\STM32CubeIDE\workspace_2.0.0\LoRaWAN_End_Node\</code><br>
+        Then open the folders: <code>LoRaWAN\Target\</code><br>
+        Full path should be: <code>C:\Users\tngug\STM32CubeIDE\workspace_2.0.0\LoRaWAN_End_Node\LoRaWAN\Target\</code><br>
+        <strong>This is the DESTINATION where you paste the new file</strong>
+      </li>
+      <li>
+        <strong>Paste it (Ctrl+V):</strong><br>
+        Right-click in the folder → Paste (or press Ctrl+V)<br>
+        The RAK3172 version of <code>radio_board_if.c</code> is now in your project
+      </li>
+      <li>
+        <strong>Tell STM32CubeIDE to see the new file:</strong><br>
+        Back in STM32CubeIDE, right-click the project name → <strong>Refresh</strong> (or press F5)<br>
+        The new file should now appear in Project Explorer
+      </li>
+    </ol>
+
+    <div class="info-box">
+      <strong>VISUAL SUMMARY:</strong><br>
+      <strong>Source (where you copy FROM):</strong> <code>C:\Users\tngug\Downloads\RAK3172_Hardware_Files\radio_board_if.c</code><br>
+      ↓ COPY THIS FILE ↓<br>
+      <strong>Destination (where you paste TO):</strong> <code>C:\Users\tngug\STM32CubeIDE\workspace_2.0.0\LoRaWAN_End_Node\LoRaWAN\Target\radio_board_if.c</code>
+    </div>
+
+    <p><strong>File 2: radio_board_if.h</strong></p>
+    <ol>
+      <li>In Project Explorer, it's in the same location: <code>Application → User → LoRaWAN → Target</code></li>
+      <li>Find <code>radio_board_if.h</code></li>
+      <li>Right-click it → <strong>Delete</strong></li>
+      <li>In File Explorer, navigate to: <code>C:\STM32_Workspace\LoRaWAN_End_Node\LoRaWAN\Target\</code></li>
+      <li>Copy the RAK3172 version of <code>radio_board_if.h</code> into this folder</li>
+      <li>In STM32CubeIDE: Right-click project → <strong>Refresh</strong></li>
+    </ol>
+
+    <p><strong>File 3: radio_conf.h</strong></p>
+    <ol>
+      <li>In Project Explorer, same location: <code>Application → User → LoRaWAN → Target</code></li>
+      <li>Find <code>radio_conf.h</code></li>
+      <li>Right-click it → <strong>Delete</strong></li>
+      <li>In File Explorer, navigate to: <code>C:\STM32_Workspace\LoRaWAN_End_Node\LoRaWAN\Target\</code></li>
+      <li>Copy the RAK3172 version of <code>radio_conf.h</code> into this folder</li>
+      <li>In STM32CubeIDE: Right-click project → <strong>Refresh</strong></li>
+    </ol>
+
+    <div class="info-box">
+      <strong>FINDING THE ACTUAL FOLDER ON YOUR COMPUTER:</strong> The actual folder structure on disk might be slightly different from what shows in Project Explorer. Here are the likely paths:
+      <ul>
+        <li><strong>Radio files:</strong> <code>C:\STM32_Workspace\LoRaWAN_End_Node\LoRaWAN\Target\</code></li>
+        <li><strong>Alternative location:</strong> <code>C:\STM32_Workspace\LoRaWAN_End_Node\SubGHz_Phy\Target\</code></li>
+        <li><strong>If you can't find it:</strong> Right-click on <code>radio_board_if.c</code> in Project Explorer → <strong>Properties</strong> → Look at "Location" field to see exact path</li>
+      </ul>
+    </div>
+
+    <p><strong>File 4: startup_stm32wle5ccux.s</strong></p>
+    <ol>
+      <li>In Project Explorer, navigate to: <code>Application → User → Startup</code></li>
+      <li>Find <code>startup_stm32wle5ccux.s</code></li>
+      <li>Right-click it → <strong>Delete</strong></li>
+      <li>In File Explorer, navigate to: <code>C:\STM32_Workspace\LoRaWAN_End_Node\Core\Startup\</code></li>
+      <li>Copy the RAK3172 version of <code>startup_stm32wle5ccux.s</code> into this folder</li>
+      <li>In STM32CubeIDE: Right-click project → <strong>Refresh</strong></li>
+    </ol>
+
+    <div class="critical-box">
+      <strong>IMPORTANT: WHERE TO FIND .h HEADER FILES (UPDATED LOCATION INFO):</strong><br><br>
+      
+      Based on actual STM32CubeIDE 2.0.0 project structure, the header files (.h) are NOT in a separate Inc folder. They are located alongside their corresponding .c files:<br><br>
+      
+      <strong>Actual File Locations in Project Explorer:</strong>
+      <ul>
+        <li><strong>radio_board_if.h:</strong> Expand <code>radio_board_if.c</code> (click arrow next to it) → You'll see <code>radio_board_if.h</code> nested underneath</li>
+        <li><strong>radio_conf.h:</strong> Located in <code>Middlewares → LoRaWAN → SubGHz_Phy</code> folder (expand the tree to find it)</li>
+        <li><strong>Alternative radio_conf.h location:</strong> May also appear when expanding <code>radio_driver.c</code> file</li>
+      </ul>
+      
+      <strong>Why this matters:</strong> STM32CubeIDE groups .h files with their corresponding .c files in the project tree view for easier navigation. The physical folder structure on disk may differ from this logical grouping.
+    </div>
+
+    <div class="warning-box">
+      <strong>TIP TO FIND EXACT FILE LOCATIONS:</strong> If you're unsure where a file is on disk:
+      <ol>
+        <li>Right-click the file in Project Explorer</li>
+        <li>Select <strong>Properties</strong></li>
+        <li>Look at the <strong>"Location"</strong> field - this shows the exact path</li>
+        <li>Copy that path and open it in Windows File Explorer</li>
+      </ol>
+      <strong>For .h files nested under .c files:</strong> Expand the .c file in Project Explorer, then right-click the .h file to see its properties.
+    </div>
+
+
+
+    <h4>Modification 3: Verify File Replacement Was Successful</h4>
+
+    <ol>
+      <li>In STM32CubeIDE, double-click <code>radio_board_if.c</code> to open it</li>
+      <li>Look at the top comments - you should see RAK3172 or RAKwireless mentioned</li>
+      <li>Search for antenna switch configuration - RAK3172 uses specific GPIO pins for RF switching</li>
+      <li>If you still see NUCLEO board references, the file wasn't replaced correctly</li>
+    </ol>
+
+    <p><strong>STEP 4: Clear Build Errors and Rebuild Index</strong></p>
+
+    <ol>
+      <li>
+        <strong>Refresh the project:</strong> Right-click on project → <strong>Refresh</strong> (or press F5)
+      </li>
+      <li>
+        <strong>Clean the project:</strong> Right-click on project → <strong>Clean Project</strong>
+      </li>
+      <li>
+        <strong>Rebuild the index:</strong> Right-click on project → <strong>Index → Rebuild</strong>
+      </li>
+      <li>
+        <strong>Check the Problems tab:</strong> At the bottom of STM32CubeIDE, click the <strong>Problems</strong> tab
+        <ul>
+          <li>Many warnings should now be gone</li>
+          <li>The yellow warning triangles on the project should disappear or reduce significantly</li>
+          <li>If you still see errors about "unresolved symbols", wait for indexing to complete (progress bar in bottom-right)</li>
+        </ul>
+      </li>
+    </ol>
+
+    <div class="info-box">
+      <strong>REMAINING WARNINGS YOU CAN IGNORE:</strong> You might still see some warnings like:
+      <ul>
+        <li>"Description Resource Path Location Type" - generic Eclipse warnings</li>
+        <li>Unused variable warnings - these are in ST's example code</li>
+        <li>".ioc file out of sync" - ignore this if you're not using CubeMX code generation</li>
+        <li>Yellow/orange triangles on folders (Application, Drivers, Middlewares, Utilities, etc.) - these are normal</li>
+        <li>Indexer warnings - these don't affect compilation</li>
+      </ul>
+      As long as the project <strong>builds successfully</strong>, these minor warnings won't affect functionality.
+    </div>
+
+    <div class="warning-box">
+      <strong>WHAT YELLOW/ORANGE WARNINGS MEAN:</strong><br><br>
+      
+      <strong>Yellow triangles on FOLDERS (Application, Drivers, Middlewares, Utilities):</strong><br>
+      ✅ <strong>NORMAL and SAFE TO IGNORE</strong> - These indicate minor issues like:
+      <ul>
+        <li>Some unused variables in ST's library code</li>
+        <li>Code style suggestions</li>
+        <li>Missing documentation comments</li>
+        <li>Non-critical configuration mismatches</li>
+      </ul>
+      These do NOT prevent building or running your program.<br><br>
+      
+      <strong>Yellow triangles on FILES you replaced (radio_board_if.c, radio_conf.h, etc.):</strong><br>
+      ✅ <strong>CHECK THESE</strong> - Make sure they're just unused variable warnings, not missing includes<br><br>
+      
+      <strong>Red X marks anywhere:</strong><br>
+      ❌ <strong>MUST FIX</strong> - These are actual errors that will prevent building<br><br>
+      
+      <strong>The REAL test:</strong> Can you build the project? If "Build Project" completes without stopping with errors, the yellow warnings are fine. The build error you're seeing (<code>No rule to make target 'C:/Utilities/...'</code>) is a build configuration problem, NOT related to the yellow warning triangles.
+    </div>
+
+    <p><strong>What These Files Actually Control (So You Understand Why This Matters):</strong></p>
+    <table>
+      <tbody><tr>
+        <th>File Name</th>
+        <th>What It Controls</th>
+        <th>Why RAK3172 Needs Different Version</th>
+      </tr>
+      <tr>
+        <td>radio_board_if.c</td>
+        <td>Antenna switch control, RF path selection, TCXO control</td>
+        <td>RAK3172 uses different GPIOs and switching logic than NUCLEO board</td>
+      </tr>
+      <tr>
+        <td>radio_board_if.h</td>
+        <td>Pin definitions and function declarations</td>
+        <td>RAK3172 has different GPIO assignments</td>
+      </tr>
+      <tr>
+        <td>radio_conf.h</td>
+        <td>RF frequency, power levels, bandwidth settings</td>
+        <td>RAK3172 RF matching network requires different parameters</td>
+      </tr>
+      <tr>
+        <td>startup_stm32wle5ccux.s</td>
+        <td>MCU initialization, interrupt vectors, memory layout</td>
+        <td>Ensures correct STM32WLE5CCU6 configuration (RAK3172's specific chip)</td>
+      </tr>
+    </tbody></table>
+
+    <h4>Modification 5: Verify Linker Script (Memory Configuration)</h4>
+
+    <p><strong>WHAT THIS DOES:</strong> Tells the compiler how much Flash and RAM the RAK3172 has so code fits correctly.</p>
+
+    <ol>
+      <li>In Project Explorer, look at the project root (you should see the file directly: <code>STM32WL55JCIX_FLASH.ld</code>)</li>
+      <li>Double-click to open: <code>STM32WL55JCIX_FLASH.ld</code> (NOTE: This will eventually be renamed to STM32WLE5CCUX_FLASH.ld for RAK3172)</li>
+      <li>Find the MEMORY section (should be near the top, around line 30-50)</li>
+      <li>
+        Verify it looks EXACTLY like this:
+        <pre>MEMORY
+{
+  RAM    (xrw)  : ORIGIN = 0x20000000, LENGTH = 64K
+  FLASH  (rx)   : ORIGIN = 0x08000000, LENGTH = 256K
+}
+        </pre>
+      </li>
+      <li>If the values are different (like 128K Flash or different RAM size), <strong>change them to match above</strong></li>
+      <li>Save the file (Ctrl+S)</li>
+    </ol>
+
+    <div class="info-box">
+      <strong>WHY:</strong> RAK3172 uses STM32WLE5CCU6 which has 256KB Flash and 64KB RAM. The NUCLEO board might use a different chip variant. Wrong memory settings = your program won't run or will crash.
+    </div>
+
+    <h4>Modification 6: Clock Configuration (Crystal Frequency)</h4>
+
+    <p><strong>WHAT THIS DOES:</strong> Sets the correct external crystal frequency so all timing in your program works correctly.</p>
+
+    <ol>
+      <li>In Project Explorer, navigate to: <code>Core → Src</code></li>
+      <li>Double-click to open: <code>system_stm32wlxx.c</code></li>
+      <li>Near the top (lines 60-80), find the line that says <code>#define HSE_VALUE</code></li>
+      <li>
+        Make sure it says EXACTLY:
+        <pre>#define HSE_VALUE 32000000U  /* 32MHz TCXO on RAK3172 */
+        </pre>
+      </li>
+      <li>If it says 8000000U or any other number, <strong>change it to 32000000U</strong></li>
+      <li>Save the file (Ctrl+S)</li>
+    </ol>
+
+    <div class="info-box">
+      <strong>WHY:</strong> RAK3172 uses a 32MHz TCXO (temperature-compensated crystal oscillator). NUCLEO boards typically use 8MHz crystals. Wrong value = LoRa timing will be off and won't communicate properly.
+    </div>
+
+    <h3>4.4 Project Configuration in STM32CubeIDE</h3>
+
+    <ol>
+      <li>Right-click project → <strong>Properties</strong></li>
+      <li><strong>C/C++ Build → Settings → MCU/MPU Settings</strong></li>
+      <li>
+        Verify the following settings:
+        <ul>
+          <li>MCU: STM32WLE5CCUx</li>
+          <li>Core: ARM Cortex-M4</li>
+          <li>FPU: None</li>
+          <li>Float ABI: Software</li>
+        </ul>
+      </li>
+      <li><strong>C/C++ Build → Settings → Tool Settings → MCU GCC Compiler</strong></li>
+      <li>
+        Add preprocessor defines:
+        <pre>USE_HAL_DRIVER
+STM32WLE5xx
+CORE_CM4
+        </pre>
+      </li>
+      <li>
+        Optimization settings:
+        <ul>
+          <li>Debug build: -Og (optimize for debugging)</li>
+          <li>Release build: -O2 (optimize for size)</li>
+        </ul>
+      </li>
+    </ol>
+
+    <h2>Section 5: Building and Testing the Firmware</h2>
+
+    <h3>5.1 Building the Project</h3>
+
+    <h4>Step-by-Step Build Process:</h4>
+
+    <ol>
+      <li>Clean project first: <strong>Project → Clean → Select project → Clean</strong></li>
+      <li>Build project: <strong>Project → Build Project</strong> (or press Ctrl+B)</li>
+      <li>Watch Console for errors/warnings</li>
+      <li>
+        Successful build will show:
+        <pre>Finished building target: LoRaWAN_End_Node.elf
+arm-none-eabi-size LoRaWAN_End_Node.elf
+text    data     bss     dec     hex filename
+45678   1024    5432   52134    cbae LoRaWAN_End_Node.elf
+        </pre>
+      </li>
+    </ol>
+
+    <h3>5.2 Common Build Errors and Solutions</h3>
+
+    <h4>Error 1: "No rule to make target 'C:/Utilities/...' or 'C:/Drivers/...'"</h4>
+
+    <div class="critical-box">
+      <strong>SYMPTOM:</strong>
+      <pre>make: *** No rule to make target 'C:/Utilities/trace/adv_trace/stm32_adv_trace.c', 
+needed by 'Utilities/stm32_adv_trace.o'. Stop.
+      </pre>
+      
+      <strong>CAUSE:</strong> The project has absolute paths (C:/ starting paths) instead of relative paths to your workspace. This happens when "Copy projects into workspace" was NOT checked during import.
+    </div>
+
+    <p><strong>SOLUTION - Option 1: Fix the Makefile Source File References (DIRECT FIX)</strong></p>
+    
+    <div class="info-box">
+      <strong>IF YOUR INCLUDE PATHS LOOK CORRECT:</strong> The error about <code>C:/Utilities/...</code> means the build system's makefile has hardcoded absolute paths. This is different from include paths. Here's how to fix it:
+    </div>
+
+    <ol>
+      <li>Close Properties window</li>
+      <li>In Project Explorer, expand the project and look for <strong>Debug</strong> or <strong>Release</strong> folder</li>
+      <li>Inside that folder, find and delete these files (if present):
+        <ul>
+          <li><code>makefile</code></li>
+          <li><code>objects.mk</code></li>
+          <li><code>sources.mk</code></li>
+          <li>Any <code>subdir.mk</code> files</li>
+        </ul>
+      </li>
+      <li>Right-click project → <strong>Clean Project</strong></li>
+      <li>Right-click project → <strong>Refresh</strong> (F5)</li>
+      <li>Now rebuild: <strong>Project → Build Project</strong></li>
+      <li>STM32CubeIDE will regenerate all makefiles with correct paths</li>
+    </ol>
+
+    <div class="warning-box">
+      <strong>WHY THIS WORKS:</strong> Sometimes old makefiles get cached with absolute paths from when the project was first created. Deleting them forces STM32CubeIDE to regenerate them using your current workspace configuration.
+    </div>
+
+    <div class="warning-box">
+      <strong>BEFORE TRYING THE NUCLEAR OPTION - CHECKLIST:</strong>
+      <ol>
+        <li>☐ Have you deleted the entire Release folder?</li>
+        <li>☐ Have you cleaned the project (Project → Clean)?</li>
+        <li>☐ Have you refreshed the project (Right-click → Refresh or F5)?</li>
+        <li>☐ Have you tried building again?</li>
+        <li>☐ Is the error message still exactly: <code>No rule to make target 'C:/Utilities/...'</code>?</li>
+        <li>☐ Have you checked that yellow warning triangles are on FOLDERS not your replaced files?</li>
+      </ol>
+      If you've done ALL of the above and still getting the C:/Utilities error, proceed with nuclear option below.
+    </div>
+
+    <div class="critical-box">
+      <strong>NUCLEAR OPTION - Complete Project Reimport:</strong><br>
+      If the error persists after trying all fixes above, the project import was corrupted. Here's the complete reset:
+      <ol>
+        <li><strong>Close STM32CubeIDE completely</strong></li>
+        <li><strong>In Windows File Explorer, delete your project folder:</strong><br>
+          <code>C:\Users\tngug\STM32CubeIDE\workspace_2.0.0\LoRaWAN_End_Node</code><br>
+          (Delete the ENTIRE folder)
+        </li>
+        <li><strong>Reopen STM32CubeIDE</strong></li>
+        <li><strong>Re-import the project (Section 4.1)</strong> but this time be EXTRA careful:
+          <ul>
+            <li>When browsing to the SDK location, select: <code>C:\STM32Cube\Repository\STM32Cube_FW_WL_V1.4.0\Projects\NUCLEO-WL55JC\Applications\LoRaWAN\LoRaWAN_End_Node</code></li>
+            <li><strong>CHECK</strong> "Search for nested projects"</li>
+            <li><strong>CHECK</strong> "Copy projects into workspace" ← THIS IS CRITICAL!</li>
+            <li>Uncheck "Hide projects that already exist"</li>
+          </ul>
+        </li>
+        <li><strong>After import, BEFORE replacing files:</strong> Try building once to see if the C:/Utilities error appears</li>
+        <li>If build succeeds (even with other errors), then proceed with Section 4.2 to replace RAK3172 files</li>
+        <li>If C:/Utilities error still appears, the SDK extraction location might be the issue</li>
+      </ol>
+    </div>
+
+    <p><strong>SOLUTION - Option 2: Check Build Configuration Source Paths (If Option 1 Doesn't Work)</strong></p>
+    <ol>
+      <li>Right-click project → <strong>Properties</strong></li>
+      <li>Go to: <strong>C/C++ Build → Settings → Tool Settings</strong></li>
+      <li>You've already verified <strong>MCU GCC Compiler → Include paths</strong> looks good (relative paths with ../../)</li>
+      <li>Now check: <strong>C/C++ General → Paths and Symbols → Source Location</strong> tab</li>
+      <li>Verify all folders listed are relative (like <code>/LoRaWAN_End_Node</code>)</li>
+      <li>If you see ANY path starting with <code>C:/</code>, delete it and re-add it using the workspace root</li>
+      <li>Click <strong>Apply and Close</strong></li>
+      <li>Clean project and rebuild</li>
+    </ol>
+
+    <p><strong>SOLUTION - Option 2: Re-import Project Correctly (Best Fix)</strong></p>
+    <ol>
+      <li>Close STM32CubeIDE</li>
+      <li>Delete the broken project from workspace (in Windows File Explorer, delete the <code>C:\STM32_Workspace\LoRaWAN_End_Node</code> folder)</li>
+      <li>Reopen STM32CubeIDE</li>
+      <li>Go back to Section 4.1 and re-import the project</li>
+      <li><strong>THIS TIME: Make SURE to check "Copy projects into workspace" option!</strong></li>
+      <li>After import, verify in Project Explorer that you see folders like Utilities, Drivers as part of your project tree</li>
+      <li>Replace the RAK3172 files again (Section 4.2)</li>
+      <li>Build should now work</li>
+    </ol>
+
+    <p><strong>SOLUTION - Option 3: Convert to Workspace-Relative Paths (Advanced)</strong></p>
+    <ol>
+      <li>Right-click project → <strong>Properties</strong></li>
+      <li><strong>C/C++ Build → Settings → Tool Settings</strong></li>
+      <li>Expand <strong>MCU GCC Compiler → Include paths</strong></li>
+      <li>Look for any paths with absolute references (starting with C:/ or D:/)</li>
+      <li>Click on each → Click <strong>Edit</strong></li>
+      <li>Check <strong>"Workspace"</strong> radio button at the top</li>
+      <li>Browse to select the folder relative to workspace (e.g., <code>LoRaWAN_End_Node/Utilities</code>)</li>
+      <li>Repeat for all absolute paths</li>
+      <li>Click <strong>Apply and Close</strong></li>
+      <li>Do the same for: <strong>MCU GCC Linker → Libraries</strong></li>
+      <li>Clean and rebuild</li>
+    </ol>
+
+    <div class="info-box">
+      <strong>VERIFY PATHS ARE CORRECT:</strong> After fixing, check the Console output during build. Paths should look like:
+      <pre>Building file: ../Utilities/trace/adv_trace/stm32_adv_trace.c
+      </pre>
+      NOT like:
+      <pre>Building file: C:/Utilities/trace/adv_trace/stm32_adv_trace.c
+      </pre>
+      The <code>../</code> prefix means relative path (correct). The <code>C:/</code> prefix means absolute path (wrong).
+    </div>
+
+    <h4>Error 2: "undefined reference to..."</h4>
+
+    <div class="critical-box">
+      <strong>SYMPTOM:</strong>
+      <pre>undefined reference to `Radio_Init'
+undefined reference to `SUBGRF_SetRfFrequency'
+      </pre>
+      
+      <strong>CAUSE:</strong> Linker cannot find the radio driver functions. This happens when source files are missing from the build or library paths are incorrect.
+    </div>
+
+    <p><strong>SOLUTION:</strong></p>
+    <ol>
+      <li>Verify all radio files are present in Project Explorer</li>
+      <li>Right-click project → Properties → C/C++ Build → Settings</li>
+      <li>Check: MCU GCC Linker → Libraries</li>
+      <li>Verify library search paths are relative, not absolute</li>
+      <li>Clean and rebuild</li>
+    </ol>
+
+    <h4>Error 3: "unknown type name 'RBI_RFOMaxPowerConfig_TypeDef'"</h4>
+
+    <div class="critical-box">
+      <strong>SYMPTOM:</strong>
+      <pre>unknown type name 'RBI_RFOMaxPowerConfig_TypeDef'; 
+did you mean 'BSP_RADIO_RFOMaxPowerConfig_TypeDef'?
+      </pre>
+      
+      <strong>CAUSE:</strong> The RAK3172 <code>radio_board_if.h</code> file from RAKwireless is missing the typedef definition for <code>RBI_RFOMaxPowerConfig_TypeDef</code>. The function <code>RBI_GetRFOMaxPowerConfig()</code> uses this type, but the type was never declared in the header file.
+    </div>
+
+    <div class="info-box">
+      <strong>WHY THIS ERROR OCCURS - Technical Explanation:</strong><br><br>
+      
+      <strong>C Language Rule:</strong> Types must be declared BEFORE they are used. You cannot reference a custom type in a function prototype unless the compiler has already seen its definition earlier in the file.<br><br>
+      
+      <strong>What the compiler sees:</strong><br>
+      <pre>// Function prototype tries to use undefined type
+int32_t RBI_GetRFOMaxPowerConfig(RBI_RFOMaxPowerConfig_TypeDef Config);
+                                 ↑
+                           "ERROR: What is this type?"
+      </pre>
+      
+      <strong>What the compiler needs:</strong><br>
+      <pre>// Type definition MUST come first
+typedef enum { 
+    RBI_RFO_LP_MAXPOWER = 0, 
+    RBI_RFO_HP_MAXPOWER = 1 
+} RBI_RFOMaxPowerConfig_TypeDef;
+                                 ↑
+                         "Now I know what this type is!"
+
+// Now the function prototype works
+int32_t RBI_GetRFOMaxPowerConfig(RBI_RFOMaxPowerConfig_TypeDef Config);
+                                 ↑
+                         "Perfect! I recognize this type now"
+      </pre>
+    </div>
+
+    <p><strong>SOLUTION: Fix the radio_board_if.h Header File</strong></p>
+
+    <ol>
+      <li>
+        <strong>Locate the file:</strong><br>
+        In Windows File Explorer, navigate to:<br>
+        <code>C:\Users\tngug\STM32CubeIDE\workspace_2.0.0\LoRaWAN_End_Node\LoRaWAN\Target\radio_board_if.h</code>
+      </li>
+      <li>
+        <strong>Open with text editor</strong> (Notepad++, VS Code, or even Notepad)
+      </li>
+      <li>
+        <strong>Replace the ENTIRE file content</strong> with this complete, corrected version:
+        <pre>#ifndef RADIO_BOARD_IF_H
+#define RADIO_BOARD_IF_H
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+#include "platform.h"
+#include "stm32wlxx_hal.h"
+
+/* RAK3172 Switch Type Definition */
+typedef enum
+{
+    RBI_SWITCH_OFF    = 0,
+    RBI_SWITCH_RX     = 1,
+    RBI_SWITCH_RFO_LP = 2,
+    RBI_SWITCH_RFO_HP = 3,
+} RBI_Switch_TypeDef;
+
+/* RAK3172 RFO Max Power Configuration Type - THE CRITICAL MISSING TYPEDEF */
+typedef enum
+{
+    RBI_RFO_LP_MAXPOWER = 0,    /* Low Power Mode - 15 dBm */
+    RBI_RFO_HP_MAXPOWER = 1,    /* High Power Mode - 22 dBm */
+} RBI_RFOMaxPowerConfig_TypeDef;
+
+/* RAK3172 Configuration Constants */
+#define RBI_CONF_RFO_LP_HP  0
+#define RBI_CONF_RFO_LP     1
+#define RBI_CONF_RFO_HP     2
+
+/* Function declarations */
+int32_t RBI_Init(void);
+int32_t RBI_DeInit(void);
+int32_t RBI_ConfigRFSwitch(RBI_Switch_TypeDef Config);
+int32_t RBI_GetTxConfig(void);
+int32_t RBI_GetWakeUpTime(void);
+int32_t RBI_IsTCXO(void);
+int32_t RBI_IsDCDC(void);
+int32_t RBI_GetRFOMaxPowerConfig(RBI_RFOMaxPowerConfig_TypeDef Config);
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif /* RADIO_BOARD_IF_H */
+        </pre>
+      </li>
+      <li>Save the file (Ctrl+S)</li>
+      <li>Back in STM32CubeIDE: Right-click project → <strong>Refresh</strong> (F5)</li>
+      <li>Right-click project → <strong>Clean Project</strong></li>
+      <li>Build project → The error should now be resolved</li>
+    </ol>
+
+    <div class="warning-box">
+      <strong>WHAT WAS ADDED:</strong> The missing typedef definition starting at line 18:
+      <pre>typedef enum
+{
+    RBI_RFO_LP_MAXPOWER = 0,    /* Low Power Mode - 15 dBm */
+    RBI_RFO_HP_MAXPOWER = 1,    /* High Power Mode - 22 dBm */
+} RBI_RFOMaxPowerConfig_TypeDef;
+      </pre>
+      
+      This defines the type used by the <code>RBI_GetRFOMaxPowerConfig()</code> function to specify whether the RAK3172 should use:
+      <ul>
+        <li><strong>Low Power Mode (LP):</strong> Maximum 15 dBm transmission power</li>
+        <li><strong>High Power Mode (HP):</strong> Maximum 22 dBm transmission power</li>
+      </ul>
+    </div>
+
+    <div class="info-box">
+      <strong>WHY RAKwireless FILE WAS INCOMPLETE:</strong> The RAK3172 hardware files from RAKwireless documentation may be from an older SDK version or were not properly maintained. This typedef was likely present in earlier versions or assumed to be defined elsewhere. This is a common issue when hardware vendors port example code between different SDK versions.
+    </div>
+
+    <h4>Error 4: "region FLASH overflowed"</h4>
+
+    <div class="critical-box">
+      <strong>SYMPTOM:</strong>
+      <pre>region `FLASH' overflowed by 12345 bytes
+      </pre>
+      
+      <strong>CAUSE:</strong> Compiled code is too large for available flash memory (256KB for RAK3172).
+    </div>
+
+    <p><strong>SOLUTION:</strong></p>
+    <ol>
+      <li>Use Release build configuration instead of Debug (better optimization)</li>
+      <li>Right-click project → Properties → C/C++ Build → Settings</li>
+      <li>MCU GCC Compiler → Optimization → Set to <code>-Os</code> (optimize for size)</li>
+      <li>Remove debug printf statements if present</li>
+      <li>Disable verbose logging in production builds</li>
+      <li>Clean and rebuild</li>
+    </ol>
+  
+
+</body></html>
